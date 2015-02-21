@@ -6,7 +6,7 @@ sudo apt-get install python-dev libpng-dev zlib1g-dev libssl-dev libx11-dev libg
 
 then,
 
-  sudo pip install passlib py-bcrypt pycrypto semidbm PyMongo
+  sudo pip install passlib py-bcrypt pycrypto jsonrpclib semidbm PyMongo
 
 next panda:
 
