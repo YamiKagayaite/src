@@ -18,6 +18,7 @@ from toontown.toon import Toon
 import FriendHandle
 from otp.otpbase import OTPGlobals
 from toontown.nametag import NametagGlobals
+from otp.ai.MagicWordGlobal import *
 
 class FriendsListManager:
     notify = DirectNotifyGlobal.directNotify.newCategory('FriendsListManager')
@@ -185,3 +186,12 @@ class FriendsListManager:
                 dna = friendToon.getStyle()
                 FriendNotifier.FriendNotifier(avId, friendToon.getName(), dna, None)
         return
+
+@magicWord(category=CATEGORY_MODERATOR, types=[int])
+def tp(avId):
+    ToonTeleportPanel.showTeleportPanel(avId, str(avId), False)
+
+@magicWord(category=CATEGORY_MODERATOR, types=[int])
+def avatar(avId):
+    avatar = base.cr.doId2do.get(avId)
+    messenger.send('clickedNametag', [avatar])
