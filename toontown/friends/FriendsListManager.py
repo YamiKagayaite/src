@@ -189,9 +189,16 @@ class FriendsListManager:
 
 @magicWord(category=CATEGORY_MODERATOR, types=[int])
 def tp(avId):
-    ToonTeleportPanel.showTeleportPanel(avId, str(avId), False)
+    if avId in base.cr.doId2do:
+        ToonTeleportPanel.showTeleportPanel(avId, str(avId), False)
+    else:
+        return "Player is not local"
 
 @magicWord(category=CATEGORY_MODERATOR, types=[int])
 def avatar(avId):
-    avatar = base.cr.doId2do.get(avId)
-    messenger.send('clickedNametag', [avatar])
+    if avId in base.cr.doId2do:
+        avatar = base.cr.doId2do.get(avId)
+        messenger.send('clickedNametag', [avatar])
+        return "Found player"
+    else:
+        return "Player is not local"
