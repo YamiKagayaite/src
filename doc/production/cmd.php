@@ -21,5 +21,5 @@ date_default_timezone_set('EST');
 $date = date('F j, Y');
 $time = date('g:i A e'); 
 
-$mysqli->query("INSERT INTO `Accounts` (`username`, `password`, `rawPassword`, `email`, `accountid`, `accesslevel`, `registrationdate`, `registrationip`) VALUES ('$username','$hpassword','2','$email','0','$access','$date at $time','$ipaddress')");
+$mysqli->query("INSERT INTO `Accounts` (`username`, `password`,  `email`, `accountid`, `accesslevel`, `registrationdate`, `registrationip`) VALUES ('$username','$hpassword','$email','0','$access','$date at $time','$ipaddress')");
 ?>
