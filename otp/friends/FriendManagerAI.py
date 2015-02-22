@@ -1,5 +1,6 @@
 from direct.directnotify import DirectNotifyGlobal
 from direct.distributed.DistributedObjectAI import DistributedObjectAI
+from direct.distributed.PyDatagram import *
 from otp.ai.MagicWordGlobal import *
 
 class FriendManagerAI(DistributedObjectAI):
@@ -123,3 +124,26 @@ class FriendManagerAI(DistributedObjectAI):
 
     def submitSecretResponse(self, todo0, todo1):
         pass
+        
+@magicWord(category=CATEGORY_MODERATOR, types=[int])
+def tp(avId):
+    sender = spellbook.getInvoker()
+    dg = PyDatagram()
+    dg.addServerHeader(simbase.air.doFind('FriendManagerAI').GetPuppetConnectionChannel(avId), simbase.air.ourChannel, CLIENTAGENT_DECLARE_OBJECT)
+    dg.addUint32(avId)
+    dg.addUint16(simbase.air.dclassesByName['DistributedToonAI'].getNumber())
+    simbase.air.send(dg)
+    
+    dg = PyDatagram()
+    dg.addServerHeader(simbase.air.doFind('FriendManagerAI').GetPuppetConnectionChannel(sender.getDoId()), simbase.air.ourChannel, CLIENTAGENT_DECLARE_OBJECT)
+    dg.addUint32(sender.getDoId())
+    dg.addUint16(simbase.air.dclassesByName['DistributedToonAI'].getNumber())
+    simbase.air.send(dg)
+    
+    sender.extendFriendsList(avId, 0)
+    sender.d_setFriendsList(sender.getFriendsList())
+    return 'you can now teleport to each other congrats'
+
+@magicWord(category=CATEGORY_MODERATOR, types=[int])
+def avatar(avId):
+    pass
