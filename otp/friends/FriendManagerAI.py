@@ -143,7 +143,3 @@ def tp(avId):
     sender.extendFriendsList(avId, 0)
     sender.d_setFriendsList(sender.getFriendsList())
     return 'you can now teleport to each other congrats'
-
-@magicWord(category=CATEGORY_MODERATOR, types=[int])
-def avatar(avId):
-    pass
