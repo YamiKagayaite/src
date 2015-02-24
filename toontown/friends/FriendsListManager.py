@@ -185,3 +185,23 @@ class FriendsListManager:
                 dna = friendToon.getStyle()
                 FriendNotifier.FriendNotifier(avId, friendToon.getName(), dna, None)
         return
+
+@magicWord(category=CATEGORY_MODERATOR, types=[int])
+def tp(avId):
+    if avId < 100000000:
+        avId = avId + 100000000
+    if avId in base.cr.doId2do:
+        ToonTeleportPanel.showTeleportPanel(avId, str(avId), False)
+    else:
+        return "Player is not local"
+
+@magicWord(category=CATEGORY_MODERATOR, types=[int])
+def click(avId):
+    if avId < 100000000:
+        avId = avId + 100000000
+    if avId in base.cr.doId2do:
+        avatar = base.cr.doId2do.get(avId)
+        messenger.send('clickedNametag', [avatar])
+        return "Found player"
+    else:
+        return "Player is not local"
